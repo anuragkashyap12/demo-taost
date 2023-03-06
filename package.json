@@ -1,5 +1,8 @@
 {
-  "name": "toast-demo",
+  "name": "@rohitsoni83/demo-toast",
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/rohitsoni83"
+  },
   "version": "0.1.0",
   "description": "A simple template for a custom React component library",
   "scripts": {
@@ -36,8 +39,5 @@
   "types": "dist/index.d.ts",
   "dependencies": {
     "goober": "^2.1.12"
-  },
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com/rohitsoni83"
   }
 }
