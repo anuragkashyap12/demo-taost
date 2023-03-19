@@ -1,5 +1,5 @@
 {
-  "name": "@rohitsoni83/demo-toast",
+  "name": "cg-toast-demo",
   "publishConfig": {
     "registry": "https://npm.pkg.github.com/rohitsoni83"
   },

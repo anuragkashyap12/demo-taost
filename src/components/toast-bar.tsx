@@ -1,10 +1,9 @@
-import React, { useRef, useEffect, useState } from "react";
-import { styled, keyframes } from "goober";
+import * as React from 'react';
+import { styled, keyframes } from 'goober';
 
-import { Toast, ToastPosition, resolveValue, Renderable } from "../core/types";
-import { ToastIcon } from "./toast-icon";
-import { getBackgroundColor, prefersReducedMotion } from "../core/utils";
-import "./toastBar.scss";
+import { Toast, ToastPosition, resolveValue, Renderable } from '../core/types';
+import { ToastIcon } from './toast-icon';
+import { prefersReducedMotion } from '../core/utils';
 
 const enterAnimation = (factor: number) => `
 0% {transform: translate3d(0,${factor * -200}%,0) scale(.6); opacity:.5;}
@@ -18,6 +17,29 @@ const exitAnimation = (factor: number) => `
 
 const fadeInAnimation = `0%{opacity:0;} 100%{opacity:1;}`;
 const fadeOutAnimation = `0%{opacity:1;} 100%{opacity:0;}`;
+
+const ToastBarBase = styled('div')`
+  display: flex;
+  align-items: center;
+  background: #fff;
+  color: #363636;
+  line-height: 1.3;
+  will-change: transform;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1), 0 3px 3px rgba(0, 0, 0, 0.05);
+  max-width: 350px;
+  pointer-events: auto;
+  padding: 8px 10px;
+  border-radius: 8px;
+`;
+
+const Message = styled('div')`
+  display: flex;
+  justify-content: center;
+  margin: 4px 10px;
+  color: inherit;
+  flex: 1 1 auto;
+  white-space: pre-line;
+`;
 
 interface ToastBarProps {
   toast: Toast;
@@ -33,7 +55,7 @@ const getAnimationStyle = (
   position: ToastPosition,
   visible: boolean
 ): React.CSSProperties => {
-  const top = position.includes("top");
+  const top = position.includes('top');
   const factor = top ? 1 : -1;
 
   const [enter, exit] = prefersReducedMotion()
@@ -51,49 +73,28 @@ export const ToastBar: React.FC<ToastBarProps> = React.memo(
   ({ toast, position, style, children }) => {
     const animationStyle: React.CSSProperties = toast.height
       ? getAnimationStyle(
-          toast.position || position || "top-center",
+          toast.position || position || 'top-center',
           toast.visible
         )
       : { opacity: 0 };
 
     const icon = <ToastIcon toast={toast} />;
     const message = (
-      <div className="message-container" {...toast.ariaProps}>
+      <Message {...toast.ariaProps}>
         {resolveValue(toast.message, toast)}
-      </div>
+      </Message>
     );
 
-    // progressBar
-    const progressBarRef = useRef<ReturnType<typeof setInterval>>();
-    const [progress, setProgress] = useState(100);
-
-    useEffect(() => {
-      const complete = 0;
-      if (toast.duration) {
-        progressBarRef.current = setInterval(() => {
-          if (progress > complete) {
-            setProgress((prev) => prev - 1);
-          } else {
-            return;
-          }
-        }, toast.duration / 100);
-      }
-
-      return () => {
-        clearInterval(progressBarRef.current);
-      };
-    }, []);
-
     return (
-      <div
-        className={toast.className ? toast.className : "toast-bar-container"}
+      <ToastBarBase
+        className={toast.className}
         style={{
           ...animationStyle,
           ...style,
           ...toast.style,
         }}
       >
-        {typeof children === "function" ? (
+        {typeof children === 'function' ? (
           children({
             icon,
             message,
@@ -102,24 +103,9 @@ export const ToastBar: React.FC<ToastBarProps> = React.memo(
           <>
             {icon}
             {message}
-            {/* render progressbar */}
-            {toast.progressbar && toast.duration && (
-              <div className="progress-bar">
-                <span
-                  style={{
-                    width: `${progress}%`,
-                    backgroundColor:
-                      toast.theme === "coloured"
-                        ? "#fff"
-                        : getBackgroundColor(toast.type),
-                    borderRadius: toast.style?.borderRadius || "8px",
-                  }}
-                />
-              </div>
-            )}
           </>
         )}
-      </div>
+      </ToastBarBase>
     );
   }
 );

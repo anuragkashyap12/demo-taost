@@ -1,13 +1,16 @@
-import * as React from "react";
-import { styled, keyframes } from "goober";
+import * as React from 'react';
+import { styled, keyframes } from 'goober';
 
-import { Toast } from "../core/types";
+import { Toast } from '../core/types';
+import { ErrorIcon, ErrorTheme } from './error';
+import { LoaderIcon, LoaderTheme } from './loader';
+import { CheckmarkIcon, CheckmarkTheme } from './checkmark';
 
-const StatusWrapper = styled("div")`
+const StatusWrapper = styled('div')`
   position: absolute;
 `;
 
-const IndicatorWrapper = styled("div")`
+const IndicatorWrapper = styled('div')`
   position: relative;
   display: flex;
   justify-content: center;
@@ -26,7 +29,7 @@ to {
   opacity: 1;
 }`;
 
-export const AnimatedIconWrapper = styled("div")`
+export const AnimatedIconWrapper = styled('div')`
   position: relative;
   transform: scale(0.6);
   opacity: 0.4;
@@ -35,70 +38,37 @@ export const AnimatedIconWrapper = styled("div")`
     forwards;
 `;
 
+export type IconThemes = Partial<{
+  success: CheckmarkTheme;
+  error: ErrorTheme;
+  loading: LoaderTheme;
+}>;
+
 export const ToastIcon: React.FC<{
   toast: Toast;
 }> = ({ toast }) => {
-  const { icon, type, theme, customIconColor } = toast;
+  const { icon, type, iconTheme } = toast;
   if (icon !== undefined) {
-    if (typeof icon === "string") {
+    if (typeof icon === 'string') {
       return <AnimatedIconWrapper>{icon}</AnimatedIconWrapper>;
     } else {
       return icon;
     }
   }
 
-  if (type === "blank") {
+  if (type === 'blank') {
     return null;
   }
 
   return (
     <IndicatorWrapper>
-      {type !== "loading" && (
+      <LoaderIcon {...iconTheme} />
+      {type !== 'loading' && (
         <StatusWrapper>
-          {type === "error" ? (
-            <i
-              className="fa-solid fa-circle-exclamation"
-              style={{
-                color: customIconColor
-                  ? customIconColor
-                  : theme === "coloured"
-                  ? "#fff"
-                  : "rgb(211, 47, 47)",
-              }}
-            ></i>
-          ) : type === "info" ? (
-            <i
-              className="fa-solid fa-circle-info"
-              style={{
-                color: customIconColor
-                  ? customIconColor
-                  : theme === "coloured"
-                  ? "#fff"
-                  : "rgb(2, 136, 209)",
-              }}
-            ></i>
-          ) : type === "warning" ? (
-            <i
-              className="fa-solid fa-triangle-exclamation"
-              style={{
-                color: customIconColor
-                  ? customIconColor
-                  : theme === "coloured"
-                  ? "#262626"
-                  : "rgb(245, 124, 0)",
-              }}
-            ></i>
+          {type === 'error' ? (
+            <ErrorIcon {...iconTheme} />
           ) : (
-            <i
-              className="fa-solid fa-circle-check"
-              style={{
-                color: customIconColor
-                  ? customIconColor
-                  : theme === "coloured"
-                  ? "#fff"
-                  : "rgb(56, 142, 60)",
-              }}
-            ></i>
+            <CheckmarkIcon {...iconTheme} />
           )}
         </StatusWrapper>
       )}

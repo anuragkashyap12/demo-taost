@@ -1,7 +1,7 @@
-import React, { useEffect, useCallback } from "react";
-import { dispatch, ActionType, useStore } from "./store";
-import { toast } from "./toast";
-import { DefaultToastOptions, Toast, ToastPosition } from "./types";
+import { useEffect, useCallback } from 'react';
+import { dispatch, ActionType, useStore } from './store';
+import { toast } from './toast';
+import { DefaultToastOptions, Toast, ToastPosition } from './types';
 
 const updateHeight = (toastId: string, height: number) => {
   dispatch({
