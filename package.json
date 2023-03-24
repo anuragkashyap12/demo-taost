@@ -42,16 +42,7 @@
   "main": "dist/bundle.js",
   "exports": {
     "./package.json": "./package.json",
-    ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.mjs",
-      "require": "./dist/index.js"
-    },
-    "./headless": {
-      "types": "./headless/index.d.ts",
-      "import": "./headless/index.mjs",
-      "require": "./headless/index.js"
-    }
+    ".": "./dist/bundle.js"
   },
   "files": [
     "dist",
