@@ -9,7 +9,7 @@ module.exports = {
   entry: { app: "./src/index.ts", headless: "./src/headless/index.ts" },
   output: {
     path: path.join(__dirname, "/dist"),
-    filename: "bundle.js",
+    filename: "bundle.[name].js",
     libraryTarget: "umd",
   },
   optimization: {
