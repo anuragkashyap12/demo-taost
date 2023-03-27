@@ -11,6 +11,7 @@ module.exports = {
     path: path.join(__dirname, "/dist"),
     filename: "bundle.[name].js",
     libraryTarget: "umd",
+    library: "cg-toast",
   },
   optimization: {
     minimize: true,
