@@ -16,6 +16,9 @@ module.exports = {
   optimization: {
     minimize: true,
     minimizer: [new TerserPlugin(), new MiniCssExtractPlugin()],
+    splitChunks: {
+      chunks: "all",
+    },
   },
   devtool: "inline-source-map",
   devServer: {
