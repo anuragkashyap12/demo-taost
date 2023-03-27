@@ -10,10 +10,8 @@ module.exports = {
   output: {
     path: path.join(__dirname, "/dist"),
     filename: "bundle.js",
-    library: {
-      name: "cg_toast",
-      type: "var",
-    },
+    libraryTarget: "umd",
+    library: "cg_toast",
   },
   optimization: {
     minimize: true,

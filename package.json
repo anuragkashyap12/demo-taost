@@ -39,17 +39,11 @@
     "typescript": "^4.7.4",
     "webpack-dev-server": "^4.13.1"
   },
-  "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
-  "exports": {
-    "./package.json": "./package.json",
-    ".": "./dist/bundle.js"
-  },
+  "main": "./dist/bundle.js",
   "files": [
-    "dist",
+    "./dist",
     "src"
   ],
-  "types": "dist/index.d.ts",
   "dependencies": {
     "goober": "^2.1.12",
     "webpack": "^5.76.3",
