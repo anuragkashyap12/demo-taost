@@ -39,7 +39,7 @@
     "typescript": "^4.7.4",
     "webpack-dev-server": "^4.13.1"
   },
-  "main": "dist/bundle.js",
+  "main": "dist/bundle.app.js",
   "files": [
     "dist",
     "src"
