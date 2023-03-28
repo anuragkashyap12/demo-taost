@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { useEffect, useState } from 'react';
 import { DefaultToastOptions, Toast, ToastType } from './types';
 
 const TOAST_LIMIT = 20;
@@ -180,8 +179,8 @@ export const defaultTimeouts: {
 };
 
 export const useStore = (toastOptions: DefaultToastOptions = {}): State => {
-  const [state, setState] = useState<State>(memoryState);
-  useEffect(() => {
+  const [state, setState] = React.useState<State>(memoryState);
+  React.useEffect(() => {
     listeners.push(setState);
     return () => {
       const index = listeners.indexOf(setState);

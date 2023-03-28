@@ -41,7 +41,8 @@
   },
   "main": "dist/bundle.app.js",
   "files": [
-    "dist"
+    "dist",
+    "src"
   ],
   "dependencies": {
     "goober": "^2.1.12",
