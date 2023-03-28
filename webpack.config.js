@@ -24,10 +24,6 @@ module.exports = {
   devServer: {
     port: 3000,
   },
-  externals: {
-    react: "React",
-    "react-dom": "ReactDOM",
-  },
   module: {
     rules: [
       {
@@ -42,6 +38,10 @@ module.exports = {
         use: [MiniCssExtractPlugin.loader, "css-loader"],
       },
     ],
+  },
+  externals: {
+    react: "react",
+    "react-dom": "react-dom",
   },
   resolve: {
     extensions: [".tsx", ".ts", ".js"],
